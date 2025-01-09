@@ -13,7 +13,7 @@ const teams = [
 
 export const Pricing = () => {
     return (
-        <div className='max-w-7xl mx-auto container py-6'>
+        <div className='mx-auto container py-6 max-w-7xl sm:max-w-6xl'>
             <h1 className='max-w-2xl font-bold text-2xl sm:text-3xl md:text-4xl'>One tool for your whole company. Free for teams to try.</h1>
             <p className='opacity-70 upppercase'>TRUSTED BY TEAMS AT</p>
             <div className='flex flex-row gap-4 flex-wrap mt-4'>
