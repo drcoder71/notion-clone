@@ -3,7 +3,7 @@ import { Footer } from '@/components/shared/footer'
 import { ChildProps } from '@/types'
 import React from 'react'
 
-const RootLayout = ({ children }: ChildProps) => {
+const HomeLayout = ({ children }: ChildProps) => {
     return (
         <>
             <Navbar />
@@ -15,4 +15,4 @@ const RootLayout = ({ children }: ChildProps) => {
     )
 }
 
-export default RootLayout
+export default HomeLayout

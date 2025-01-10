@@ -12,7 +12,9 @@ export const createDocs = mutation({
   handler: async (ctx, args) => {
     const indentity = await ctx.auth.getUserIdentity();
     if (!indentity) throw new Error("You're not authentificated");
+
     const userId = indentity.subject;
+
     const documents = await ctx.db.insert("documents", {
       title: args.title,
       parentDocument: args.parentDocument,
@@ -20,5 +22,7 @@ export const createDocs = mutation({
       isArchived: false,
       isPublished: false,
     });
+
+    return documents;
   },
 });
