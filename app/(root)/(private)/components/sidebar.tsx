@@ -1,4 +1,5 @@
 'use client'
+import { Documentlist } from '@/components/shared/document-list'
 import { cn } from '@/lib/utils'
 import { ChevronsLeftIcon, MenuIcon } from 'lucide-react'
 import React, { MouseEvent, useEffect, useRef, useState } from 'react'
@@ -84,8 +85,16 @@ export const Sidebar = () => {
                 )} role='button' onClick={collapseHandler}>
                     <ChevronsLeftIcon />
                 </div>
+
+                <div>User Profile</div>
+
+                <div>
+                    <Documentlist />
+                </div>
+
                 <div className="absolute right-0 top-0 w-1 h-full cursor-ew-resize bg-primary/10 opacity-0 group-hover/sidebar:opacity-100 transition" onMouseDown={handleMouseEvent}></div>
             </div>
+
             <div className={cn('absolute top-0 left-60 z-50 w-[calc(100% - 240px)]', isReseted && "transition-all ease-in duration-300",
                 isMobile && "w-full left-0"
             )} ref={navbarRef}>

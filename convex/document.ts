@@ -1,12 +1,9 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 export const createDocs = mutation({
   args: {
     title: v.string(),
-    userId: v.string(),
-    isArchive: v.boolean(),
-    isPublished: v.boolean(),
     parentDocument: v.optional(v.id("documents")),
   },
   handler: async (ctx, args) => {
@@ -22,6 +19,27 @@ export const createDocs = mutation({
       isArchived: false,
       isPublished: false,
     });
+
+    return documents;
+  },
+});
+
+export const getDocuments = query({
+  args: {
+    parentDocument: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const indentity = await ctx.auth.getUserIdentity();
+
+    if (!indentity) throw new Error("Not authenficated! ");
+
+    const userId = indentity.subject;
+
+    const documents = await ctx.db
+      .query("documents")
+      .filter((q) => q.eq(q.field("isArchived"), false))
+      .order("desc")
+      .collect();
 
     return documents;
   },
