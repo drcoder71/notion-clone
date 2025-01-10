@@ -1,15 +1,23 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { ChevronsLeftIcon, MenuIcon } from 'lucide-react'
-import React, { MouseEvent, useRef, useState } from 'react'
+import React, { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useMediaQuery } from 'usehooks-ts'
 
 export const Sidebar = () => {
+    const isMobile = useMediaQuery('(max-width: 768px)')
+
     const sidebarRef = useRef<HTMLDivElement>(null)
     const navbarRef = useRef<HTMLDivElement>(null)
     const isResizing = useRef(false)
 
-    const [isCollapsed, setCollapsed] = useState(false)
+    const [isCollapsed, setCollapsed] = useState(isMobile)
     const [isReseted, setReseted] = useState(false)
+
+    useEffect(() => {
+        if (isMobile) collapseHandler()
+        else reset()
+    }, [isMobile])
 
     const collapseHandler = () => {
         if (sidebarRef.current && navbarRef.current) {
@@ -28,9 +36,9 @@ export const Sidebar = () => {
             setCollapsed(false)
             setReseted(true)
 
-            sidebarRef.current.style.width = "240px"
-            navbarRef.current.style.width = "calc(100% - 240px)"
-            navbarRef.current.style.left = "240px"
+            sidebarRef.current.style.width = isMobile ? "100%" : "240px"
+            navbarRef.current.style.width = isMobile ? "0" : "calc(100% - 240px)"
+            navbarRef.current.style.left = isMobile ? "100%" : "240px"
             setTimeout(() => setReseted(false), 300)
         }
     }
@@ -67,13 +75,20 @@ export const Sidebar = () => {
 
     return (
         <>
-            <div ref={sidebarRef} className={cn('w-60 h-screen flex flex-col relative bg-secondary overflow-y-auto z-50 group/sidebar', isReseted && "transition-all ease-in duration-300")}>
-                <div className='w-6 h-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-3 opacity-0 group-hover/sidebar:opacity-100 transition' role='button' onClick={collapseHandler}>
+            <div ref={sidebarRef} className={cn('w-60 h-screen flex flex-col relative bg-secondary overflow-y-auto z-50 group/sidebar', isReseted && "transition-all ease-in duration-300",
+                isMobile && ""
+            )}>
+                <div className={cn(
+                    'w-6 h-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-3 opacity-0 group-hover/sidebar:opacity-100 transition',
+                    isMobile && "opacity-100"
+                )} role='button' onClick={collapseHandler}>
                     <ChevronsLeftIcon />
                 </div>
                 <div className="absolute right-0 top-0 w-1 h-full cursor-ew-resize bg-primary/10 opacity-0 group-hover/sidebar:opacity-100 transition" onMouseDown={handleMouseEvent}></div>
             </div>
-            <div className={cn('absolute top-0 left-60 z-50 w-[calc(100% - 240px)] ', isReseted && "transition-all ease-in duration-300")} ref={navbarRef}>
+            <div className={cn('absolute top-0 left-60 z-50 w-[calc(100% - 240px)]', isReseted && "transition-all ease-in duration-300",
+                isMobile && "w-full left-0"
+            )} ref={navbarRef}>
                 <nav className='bg-transparent py-2 px-3 w-full'>
                     {
                         isCollapsed && (
