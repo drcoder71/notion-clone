@@ -35,7 +35,7 @@ export const Sidebar = () => {
         }
     }
 
-    const handleMouseEvent = (event: MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleMouseEvent = (event: any) => {
         event.preventDefault()
         event.stopPropagation()
 
