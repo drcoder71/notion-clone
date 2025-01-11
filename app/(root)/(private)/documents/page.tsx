@@ -13,7 +13,7 @@ const DocumentsPage = () => {
 
     const createDocumentHandle = () => {
         createDocuments({
-            title: "Untitled",
+            title: "New Folder",
         })
     }
 
@@ -25,6 +25,7 @@ const DocumentsPage = () => {
             <h2 className='text-lg font-bold '>
                 Welcome to <span className='text-green-500'>{user?.firstName}</span>`s document page!
             </h2>
+
             <Button type="button" onClick={createDocumentHandle}>
                 <PlusIcon className='h-4 w-4 mr-2' />
                 Create a blank
