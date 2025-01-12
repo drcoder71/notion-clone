@@ -20,7 +20,6 @@ export const Pricing = () => {
                 {
                     teams.map((team, idx) => (
                         <Image src={team} alt='team partners' width={50} height={50} key={idx} />
-                        // <PriceCard key={idx} />
                     ))
                 }
             </div>

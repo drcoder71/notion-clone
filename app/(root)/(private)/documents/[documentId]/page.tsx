@@ -1,6 +1,5 @@
 'use client'
 import { Id } from '@/convex/_generated/dataModel'
-import { useQuery } from 'convex/react'
 
 interface DocumentIdProps {
     params: {

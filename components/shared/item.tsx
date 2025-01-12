@@ -1,6 +1,6 @@
 'use client'
 import { Id } from "@/convex/_generated/dataModel"
-import { ChevronDown, ChevronRight, MoreHorizontal, Plus, PlusSquare, Trash2 } from "lucide-react"
+import { ChevronDown, ChevronRight, MoreHorizontal, Plus, Trash2 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { useUser } from "@clerk/nextjs"
 import { useMutation } from "convex/react"

@@ -6,7 +6,7 @@ import { api } from '@/convex/_generated/api'
 import { cn } from '@/lib/utils'
 import { useMutation } from 'convex/react'
 import { ArchiveIcon, ChevronsLeftIcon, MenuIcon, Plus, Search, Settings } from 'lucide-react'
-import React, { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
 export const Sidebar = () => {
