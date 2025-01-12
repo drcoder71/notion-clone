@@ -1,11 +1,16 @@
 'use client'
 import { Documentlist } from '@/components/shared/document-list'
+import { Item } from '@/components/shared/item'
+import { UserBox } from '@/components/shared/user-box'
+import { api } from '@/convex/_generated/api'
 import { cn } from '@/lib/utils'
-import { ChevronsLeftIcon, MenuIcon } from 'lucide-react'
+import { useMutation } from 'convex/react'
+import { ArchiveIcon, ChevronsLeftIcon, MenuIcon, Plus, Search, Settings } from 'lucide-react'
 import React, { MouseEvent, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
 export const Sidebar = () => {
+    const createDocument = useMutation(api.document.createDocs)
     const isMobile = useMediaQuery('(max-width: 768px)')
 
     const sidebarRef = useRef<HTMLDivElement>(null)
@@ -74,6 +79,12 @@ export const Sidebar = () => {
         setTimeout(() => setReseted(false), 300)
     }
 
+    const onCreateDocument = () => {
+        createDocument({
+            title: "Untitled"
+        })
+    }
+
     return (
         <>
             <div ref={sidebarRef} className={cn('w-60 h-screen flex flex-col relative bg-secondary overflow-y-auto z-50 group/sidebar', isReseted && "transition-all ease-in duration-300",
@@ -86,10 +97,17 @@ export const Sidebar = () => {
                     <ChevronsLeftIcon />
                 </div>
 
-                <div>User Profile</div>
-
-                <div>
+                <div className='flex flex-col'>
+                    <UserBox />
+                    <Item label="Search" icon={<Search />} />
+                    <Item label="Archived" icon={<ArchiveIcon />} />
+                    <Item label="Settings" icon={<Settings />} />
+                    <Item label="Add Document" icon={<Plus />} onClick={onCreateDocument} />
+                </div>
+                <div className='w-[90%] h-[1px] bg-muted-foreground/10 mx-auto my-4'></div>
+                <div className=''>
                     <Documentlist />
+                    <Item label="Add Document" icon={<Plus />} onClick={onCreateDocument} />
                 </div>
 
                 <div className="absolute right-0 top-0 w-1 h-full cursor-ew-resize bg-primary/10 opacity-0 group-hover/sidebar:opacity-100 transition" onMouseDown={handleMouseEvent}></div>
