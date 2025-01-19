@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexProvider } from "@/components/providers/convex-provider";
-// import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
   title: "Notion Clone",
@@ -24,8 +24,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
             storageKey="notion-clone-theme">
+            <main>
             {children}
-
+            </main>
+            <Toaster />
           </ThemeProvider>
         </ConvexProvider>
       </body>

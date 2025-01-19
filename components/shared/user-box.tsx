@@ -3,9 +3,12 @@ import { SignOutButton, useUser } from '@clerk/nextjs'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { ChevronsUpDown } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export const UserBox = () => {
     const { user } = useUser()
+    const route = useRouter()
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -50,7 +53,7 @@ export const UserBox = () => {
                 <DropdownMenuItem asChild
                     className='w-full cursor-pointer text-muted-foreground'
                 >
-                    <SignOutButton redirectUrl='/'>Log out</SignOutButton>
+                    <SignOutButton>Log out</SignOutButton>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
