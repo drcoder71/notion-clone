@@ -6,12 +6,15 @@ import { api } from '@/convex/_generated/api'
 import { cn } from '@/lib/utils'
 import { useMutation } from 'convex/react'
 import { ArchiveIcon, ChevronsLeftIcon, MenuIcon, Plus, Search, Settings } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 import { useMediaQuery } from 'usehooks-ts'
 
 export const Sidebar = () => {
     const createDocument = useMutation(api.document.createDocs)
     const isMobile = useMediaQuery('(max-width: 768px)')
+    const router = useRouter()
 
     const sidebarRef = useRef<HTMLDivElement>(null)
     const navbarRef = useRef<HTMLDivElement>(null)
@@ -80,8 +83,14 @@ export const Sidebar = () => {
     }
 
     const onCreateDocument = () => {
-        createDocument({
+        const promise = createDocument({
             title: "Untitled"
+        }).then(id => router.push(`/documents/${id}`))
+
+        toast.promise(promise, {
+            loading: "Creating a new document...",
+            success: "Create a new document",
+            error: "Failed to create a document"
         })
     }
 

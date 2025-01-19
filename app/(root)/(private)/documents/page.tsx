@@ -5,15 +5,24 @@ import { useUser } from '@clerk/nextjs'
 import { useMutation } from 'convex/react'
 import { PlusIcon } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { toast } from 'sonner'
 
 const DocumentsPage = () => {
+    const router = useRouter()
     const { user } = useUser()
     const createDocuments = useMutation(api.document.createDocs)
 
     const createDocumentHandle = () => {
-        createDocuments({
+        const promise = createDocuments({
             title: "New Folder",
+        }).then((id) => router.push(`documents/${id}`))
+
+        toast.promise(promise, {
+            loading: "Creating a new blank...",
+            success: "Create a new blank",
+            error: "Failed to create a blank"
         })
     }
 
