@@ -9,7 +9,7 @@ interface DocumentIdProps {
 
 const DocumentIdPage = ({ params }: DocumentIdProps) => {
     return (
-        <div className='p-4'>Document id: {params?.documentId}</div>
+        <div className='p-4'>Document id: {params.documentId}</div>
     )
 }
 

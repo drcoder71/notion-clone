@@ -51,7 +51,7 @@ export const Documentlist = ({ level = 0, parentDocumentId }: DocumentProps) => 
         <div>
             <p
                 className={cn(
-                    "hidden text-sm font-medium text-muted-foreground/80",
+                    "hidden text-sm font-medium text-muted-foreground/80 pl-2",
                     expanded && "last:block",
                     level == 0 && "hidden"
                 )}

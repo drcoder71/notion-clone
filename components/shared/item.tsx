@@ -8,6 +8,8 @@ import { api } from "@/convex/_generated/api"
 import { Skeleton } from "../ui/skeleton"
 import { cn } from "@/lib/utils"
 import { ReactNode } from "react"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 interface ItemProps {
     label: string,
@@ -22,8 +24,9 @@ interface ItemProps {
 
 export const Item = ({ id, label, level, expanded, onExpanded, onClick, active, icon: Icon }: ItemProps) => {
     const { user } = useUser()
-
+    const router = useRouter()
     const createDocument = useMutation(api.document.createDocs)
+    const archiveDocument = useMutation(api.document.archive)
 
     const onCreateDocument = (event: any) => {
         event.stopPropagation()
@@ -33,6 +36,18 @@ export const Item = ({ id, label, level, expanded, onExpanded, onClick, active, 
             parentDocument: id
         })
     }
+
+    const onArchiveDocument = (event: any) => {
+        event.stopPropagation()
+        if (!id) return
+
+        const documentPromise = archiveDocument({ id }).then(() => router.push(`/documents`))
+        toast.promise(documentPromise, {
+            loading: "Archiving a document",
+            success: "Archive a document",
+            error: "Failed to archive a document"
+        })
+    }    
 
     const handleExpand = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation()
@@ -63,7 +78,6 @@ export const Item = ({ id, label, level, expanded, onExpanded, onClick, active, 
             {
                 Icon && <div className="mr-4">{Icon}</div>
             }
-            <div role="">{ }</div>
             <span className="truncate">{label}</span>
             {
                 !!id && (
@@ -80,7 +94,7 @@ export const Item = ({ id, label, level, expanded, onExpanded, onClick, active, 
                                 side="right"
                                 forceMount
                             >
-                                <DropdownMenuItem onClick={() => { }}>
+                                <DropdownMenuItem onClick={onArchiveDocument}>
                                     <Trash2 className="w-4 h-5 text-muted-foreground" />
                                     Delete
                                 </DropdownMenuItem>

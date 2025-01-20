@@ -109,7 +109,6 @@ export const Sidebar = () => {
                 <div className='flex flex-col'>
                     <UserBox />
                     <Item label="Search" icon={<Search />} />
-                    <Item label="Archived" icon={<ArchiveIcon />} />
                     <Item label="Settings" icon={<Settings />} />
                     <Item label="Add Document" icon={<Plus />} onClick={onCreateDocument} />
                 </div>
@@ -118,6 +117,7 @@ export const Sidebar = () => {
                     <Documentlist />
                     <Item label="Add Document" icon={<Plus />} onClick={onCreateDocument} />
                 </div>
+                <Item label="Add Document" icon={<Plus />} onClick={onCreateDocument} />
 
                 <div className="absolute right-0 top-0 w-1 h-full cursor-ew-resize bg-primary/10 opacity-0 group-hover/sidebar:opacity-100 transition" onMouseDown={handleMouseEvent}></div>
             </div>
